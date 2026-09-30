@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">HallBook Admin</div>
+    <nav>
+        <a href="index.html">Website</a>
+        <button class="link-button" onclick="logout()">Logout</button>
+    </nav>
+</header>
+
+<main class="section">
+    <div id="accessMessage"></div>
+
+    <div id="adminContent" class="hidden">
+        <h1>Admin Dashboard</h1>
+
+        <section class="admin-panel">
+            <h2>Add Function Hall</h2>
+            <form id="hallForm" class="form-card">
+                <input id="hallName" placeholder="Hall name" required>
+                <input id="hallLocation" placeholder="Location" required>
+                <input id="hallCapacity" type="number" placeholder="Capacity" required>
+                <input id="hallPrice" type="number" placeholder="Price" required>
+                <input id="hallImage" placeholder="Image URL">
+                <textarea id="hallDescription" placeholder="Description"></textarea>
+                <button class="btn">Add Hall</button>
+            </form>
+        </section>
+
+        <section class="admin-panel">
+            <h2>Add Decoration</h2>
+            <form id="decorationForm" class="form-card">
+                <input id="decName" placeholder="Decoration name" required>
+                <input id="decPrice" type="number" placeholder="Price" required>
+                <input id="decImage" placeholder="Image URL">
+                <textarea id="decDescription" placeholder="Description"></textarea>
+                <button class="btn">Add Decoration</button>
+            </form>
+        </section>
+
+        <section class="admin-panel">
+            <h2>Add Food Package</h2>
+            <form id="foodForm" class="form-card">
+                <input id="foodName" placeholder="Food package name" required>
+                <input id="foodPrice" type="number" placeholder="Price per person" required>
+                <input id="foodImage" placeholder="Image URL">
+                <textarea id="foodDescription" placeholder="Description"></textarea>
+                <button class="btn">Add Food Package</button>
+            </form>
+        </section>
+
+        <section class="admin-panel">
+            <h2>All Bookings</h2>
+            <div id="allBookings"></div>
+        </section>
+    </div>
+</main>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
