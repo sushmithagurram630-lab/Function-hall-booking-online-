@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall Details</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">HallBook</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="halls.html">Halls</a>
+        <a href="decoration.html">Decorations</a>
+        <a href="food.html">Food</a>
+    </nav>
+</header>
+
+<main class="section">
+    <div id="hallDetails"></div>
+</main>
+
+<script>
+const API = "/api";
+const id = new URLSearchParams(location.search).get("id");
+
+async function loadHall() {
+    if (!id) {
+        document.getElementById("hallDetails").innerHTML =
+            "<p>Hall ID is missing.</p>";
+        return;
+    }
+
+    const response = await fetch(`${API}/halls/${id}`);
+    const hall = await response.json();
+
+    if (!response.ok) {
+        document.getElementById("hallDetails").innerHTML =
+            `<p>${hall.message}</p>`;
+        return;
+    }
+
+    document.getElementById("hallDetails").innerHTML = `
+        <div class="detail-card">
+            <img src="${hall.image}" alt="${hall.name}">
+            <div>
+                <h1>${hall.name}</h1>
+                <p>${hall.description || ""}</p>
+                <p><strong>Location:</strong> ${hall.location}</p>
+                <p><strong>Capacity:</strong> ${hall.capacity}</p>
+                <p><strong>Hall Price:</strong> ₹${Number(hall.price).toLocaleString("en-IN")}</p>
+                <a class="btn" href="booking.html?hallId=${hall.id}">
+                    Book This Hall
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+loadHall();
+</script>
+</body>
+</html>
