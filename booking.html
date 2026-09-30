@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Hall</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">HallBook</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="halls.html">Halls</a>
+        <a href="my-bookings.html">My Bookings</a>
+    </nav>
+</header>
+
+<main class="section">
+    <h1>Complete Your Booking</h1>
+
+    <form id="bookingForm" class="form-card wide">
+        <label>Function Hall</label>
+        <select id="hallId" required></select>
+
+        <label>Decoration</label>
+        <select id="decorationId">
+            <option value="">No decoration</option>
+        </select>
+
+        <label>Food Package</label>
+        <select id="foodId">
+            <option value="">No food package</option>
+        </select>
+
+        <label>Event Date</label>
+        <input id="eventDate" type="date" required>
+
+        <label>Guest Count</label>
+        <input id="guestCount" type="number" min="1" required>
+
+        <div id="priceSummary" class="summary">
+            <p>Select options to see the estimated total.</p>
+        </div>
+
+        <button class="btn" type="submit">Confirm Booking</button>
+        <p id="message" class="message"></p>
+    </form>
+</main>
+
+<script src="js/booking.js"></script>
+</body>
+</html>
