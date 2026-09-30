@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">HallBook</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="halls.html">Halls</a>
+        <a href="my-bookings.html">My Bookings</a>
+    </nav>
+</header>
+
+<main class="section">
+    <h1>My Bookings</h1>
+    <div id="bookingList"></div>
+</main>
+
+<script>
+const API = "/api";
+
+async function loadBookings() {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+        document.getElementById("bookingList").innerHTML =
+            `<div class="card">
+                <p>Please login to see your bookings.</p>
+                <a class="btn" href="login.html">Login</a>
+            </div>`;
+        return;
+    }
+
+    const response = await fetch(`${API}/bookings/user/${user.id}`);
+    const bookings = await response.json();
+
+    if (!bookings.length) {
+        document.getElementById("bookingList").innerHTML =
+            `<div class="card"><p>You have no bookings yet.</p></div>`;
+        return;
+    }
+
+    document.getElementById("bookingList").innerHTML = bookings.map(b => `
+        <div class="booking-card">
+            <h3>${b.hall_name}</h3>
+            <p><strong>Location:</strong> ${b.hall_location}</p>
+            <p><strong>Date:</strong> ${b.event_date}</p>
+            <p><strong>Guests:</strong> ${b.guest_count}</p>
+            <p><strong>Decoration:</strong> ${b.decoration_name || "None"}</p>
+            <p><strong>Food:</strong> ${b.food_name || "None"}</p>
+            <p><strong>Total:</strong> ₹${Number(b.total_amount).toLocaleString("en-IN")}</p>
+            <p><strong>Status:</strong>
+                <span class="status">${b.status}</span>
+            </p>
+            ${b.status !== "Cancelled" ? `
+                <button class="btn danger"
+                    onclick="cancelBooking(${b.id})">
+                    Cancel Booking
+                </button>` : ""}
+        </div>
+    `).join("");
+}
+
+async function cancelBooking(id) {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!confirm("Cancel this booking?")) return;
+
+    const response = await fetch(`${API}/bookings/${id}/cancel`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            user_id: user.id
+        })
+    });
+
+    const result = await response.json();
+    alert(result.message);
+    loadBookings();
+}
+
+loadBookings();
+</script>
+</body>
+</html>
