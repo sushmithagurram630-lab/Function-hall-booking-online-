@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">HallBook</div>
+</header>
+
+<main class="auth-container">
+    <form id="loginForm" class="form-card">
+        <h1>Login</h1>
+
+        <label>Email</label>
+        <input id="email" type="email" required>
+
+        <label>Password</label>
+        <input id="password" type="password" required>
+
+        <button class="btn" type="submit">Login</button>
+
+        <p id="message" class="message"></p>
+
+        <p>New user?
+            <a href="register.html">Create an account</a>
+        </p>
+    </form>
+</main>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
